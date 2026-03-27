@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucapan Ultah Spesial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Halaman Input */
+        .input-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .input-container h2 {
+            color: #ff4081;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ff4081;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn-submit {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #f50057;
+        }
+
+        /* Kartu Ultah (Sembunyikan Awal) */
+        .card-container {
+            display: none;
+            text-align: center;
+        }
+
+        .birthday-card {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .birthday-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://cdn.pixabay.com/photo/2020/02/05/09/14/balloons-4820909_960_720.png') no-repeat center;
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-open {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 20px 0;
+        }
+
+        .btn-open:hover {
+            background: #f57c00;
+            transform: scale(1.1);
+        }
+
+        /* Ucapan & Video (Sembunyikan Sebelum Klik Open) */
+        .wishes {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .wishes h1 {
+            color: #ff4081;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .wishes p {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .video-container {
+            margin-top: 25px;
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 250px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Halaman Input Nama & Tanggal Lahir -->
+    <div class="input-container" id="inputPage">
+        <h2>Isi Data Ultah</h2>
+        <div class="input-group">
+            <label>Nama Lengkap</label>
+            <input type="text" id="nama" placeholder="Masukkan nama..." required>
+        </div>
+        <div class="input-group">
+            <label>Tanggal Lahir</label>
+            <input type="date" id="tglLahir" required>
+        </div>
+        <button class="btn-submit" onclick="lanjutKeKartu()">Lanjut</button>
+    </div>
+
+    <!-- Kartu Ultah -->
+    <div class="card-container" id="cardPage">
+        <div class="birthday-card">
+            <div class="card-content">
+                <h2>Happy Birthday <span id="namaPenerima"></span>!</h2>
+                <button class="btn-open" id="btnOpen" onclick="bukaKartu()">OPEN</button>
+
+                <!-- Ucapan & Video (Muncul Setelah Klik Open) -->
+                <div class="wishes" id="wishesSection">
+                    <h1>祝你生日快乐 🎂</h1>
+                    <p>Tetap jadi Aldo ✨</p>
+                    <p>Semoga semua impianmu tercapai dan sehat selalu! 🎉</p>
+                    <p>God Bless Youuu😇🤩</p>
+
+                    <!-- VIDEO KAMU (GANTI LINK DISINI) -->
+                    <div class="video-container">
+                        <iframe src="aldo-birthday.mp4" allowfullscreen></iframe>
+                    </div>
+
+</div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        // Fungsi Lanjut ke Halaman Kartu
+        function lanjutKeKartu() {
+            const nama = document.getElementById('nama').value;
+            const tglLahir = document.getElementById('tglLahir').value;
+
+            if(!nama || !tglLahir) {
+                alert('Silakan isi nama dan tanggal lahir!');
+                return;
+            }
+
+            // Sembunyikan input, tampilkan kartu
+            document.getElementById('inputPage').style.display = 'none';
+            document.getElementById('cardPage').style.display = 'block';
+            document.getElementById('namaPenerima').textContent = nama;
+        }
+
+        // Fungsi Buka Kartu (Munculkan Ucapan & Video)
+        function bukaKartu() {
+            document.getElementById('btnOpen').style.display = 'none';
+            document.getElementById('wishesSection').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
